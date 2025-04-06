@@ -1,0 +1,136 @@
+# Ionic/Angular
+.ionic/
+.sass-cache/
+.versions/
+coverage/
+dist/
+node_modules/
+tmp/
+temp/
+platforms/
+plugins/
+www/
+.angular/
+
+# Capacitor
+.capacitor/
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Android
+android/app/build/
+android/build/
+android/capacitor/build/
+android/capacitor-*/build/
+android/app/release/
+android/app/debug/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/res/xml/config.xml
+android/.gradle/
+android/local.properties
+android/*.iml
+android/.idea/
+android/.externalNativeBuild
+android/.cxx/
+android/*.apk
+android/*.aab
+android/captures/
+android/.navigation/
+android/output.json
+android/release/
+android/debug/
+
+# iOS
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/Pods/
+ios/App/build/
+ios/App/App.xcworkspace/xcuserdata/
+ios/App/App.xcodeproj/xcuserdata/
+ios/App/App.xcodeproj/project.xcworkspace/xcuserdata/
+ios/App/App.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+ios/App/App.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+ios/App/App.xcarchive/
+ios/App/Podfile.lock
+ios/App/App/config.xml
+ios/App/App/Info.plist
+ios/App/App/GoogleService-Info.plist
+ios/App/App/App.entitlements
+ios/App/fastlane/report.xml
+ios/App/fastlane/Preview.html
+ios/App/fastlane/screenshots
+ios/App/fastlane/test_output
+ios/App/fastlane/derived_data
+ios/App/fastlane/metadata
+ios/App/fastlane/README.md
+ios/App/fastlane/Appfile
+ios/App/fastlane/Fastfile
+ios/App/fastlane/Deliverfile
+ios/App/fastlane/Gymfile
+ios/App/fastlane/Matchfile
+ios/App/fastlane/Scanfile
+ios/App/fastlane/Snapfile
+ios/App/fastlane/Pluginfile
+ios/App/fastlane/Deliverfile
+ios/App/fastlane/Gymfile
+ios/App/fastlane/Matchfile
+ios/App/fastlane/Scanfile
+ios/App/fastlane/Snapfile
+ios/App/fastlane/Pluginfile
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Firebase
+.firebase/
+.firebaserc
+firebase-debug.log

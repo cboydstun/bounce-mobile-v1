@@ -1,0 +1,7 @@
+{
+  "name": "bounce-mobile-v1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
