@@ -15,7 +15,21 @@ interface ProxyResponse {
 }
 
 class ProxyService {
-  private apiBaseUrl: string = 'https://satxbounce.com';
+  private apiBaseUrl: string = 'https://www.satxbounce.com';
+
+  /**
+   * Get the base URL to use for requests
+   * In development, use relative URLs to leverage Vite's proxy
+   * In production or on native platforms, use the full URL
+   */
+  private getBaseUrl(): string {
+    // In development, use relative URLs to leverage Vite's proxy
+    if (!Capacitor.isNativePlatform() && import.meta.env.DEV) {
+      return '';
+    }
+    // In production or on native platforms, use the full URL
+    return this.apiBaseUrl;
+  }
 
   /**
    * Send a request to the API through the proxy
@@ -24,7 +38,8 @@ class ProxyService {
    * @returns Promise with a response-like object
    */
   async sendRequest(endpoint: string, options: RequestInit = {}): Promise<ProxyResponse> {
-    console.log('ProxyService: sending request to:', `${this.apiBaseUrl}${endpoint}`);
+    const baseUrl = this.getBaseUrl();
+    console.log('ProxyService: sending request to:', `${baseUrl}${endpoint}`);
     
     try {
       // Determine if we're running on a native platform
@@ -64,7 +79,7 @@ class ProxyService {
           // Make the request with no-cors mode
           try {
             // This will succeed but return an opaque response
-            await fetch(`${this.apiBaseUrl}${endpoint}`, {
+            await fetch(`${this.getBaseUrl()}${endpoint}`, {
               method: 'POST',
               body: formData,
               mode: 'no-cors'
@@ -94,7 +109,7 @@ class ProxyService {
         
         // For other methods, we'll use a similar approach
         try {
-          await fetch(`${this.apiBaseUrl}${endpoint}`, {
+          await fetch(`${this.getBaseUrl()}${endpoint}`, {
             method: options.method || 'GET',
             mode: 'no-cors'
           });
@@ -112,7 +127,7 @@ class ProxyService {
         }
       } else {
         // For web/development, use regular fetch
-        const response = await fetch(`${this.apiBaseUrl}${endpoint}`, {
+        const response = await fetch(`${this.getBaseUrl()}${endpoint}`, {
           ...options,
           headers: {
             'Content-Type': 'application/json',

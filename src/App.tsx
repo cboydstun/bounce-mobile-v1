@@ -5,6 +5,8 @@ import Menu from './components/Menu';
 import Page from './pages/Page';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Contacts from './pages/Contacts';
+import Calendar from './pages/Calendar';
 import { PrivateRoute } from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 
@@ -52,6 +54,8 @@ const App: React.FC = () => {
                 <Login />
               </Route>
               <PrivateRoute path="/dashboard" exact={true} component={Dashboard} />
+              <PrivateRoute path="/contacts" exact={true} component={Contacts} />
+              <PrivateRoute path="/calendar" exact={true} component={Calendar} />
               <PrivateRoute path="/folder/:name" exact={true} component={Page} />
               <Route path="/" exact={true}>
                 <Redirect to="/dashboard" />

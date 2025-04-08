@@ -13,7 +13,16 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { homeOutline, homeSharp, logInOutline, logInSharp } from 'ionicons/icons';
+import { 
+  homeOutline, 
+  homeSharp, 
+  logInOutline, 
+  logInSharp, 
+  peopleOutline, 
+  peopleSharp,
+  calendarOutline,
+  calendarSharp
+} from 'ionicons/icons';
 import { useAuth } from '../hooks/useAuth';
 import { useState } from 'react';
 import './Menu.css';
@@ -32,6 +41,18 @@ const getAppPages = (isAuthenticated: boolean): AppPage[] => {
       url: '/dashboard',
       iosIcon: homeOutline,
       mdIcon: homeSharp
+    },
+    {
+      title: 'Contacts',
+      url: '/contacts',
+      iosIcon: peopleOutline,
+      mdIcon: peopleSharp
+    },
+    {
+      title: 'Calendar',
+      url: '/calendar',
+      iosIcon: calendarOutline,
+      mdIcon: calendarSharp
     }
   ];
 

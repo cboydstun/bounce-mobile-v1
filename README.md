@@ -122,12 +122,26 @@ This script will:
 ## Project Structure
 
 - `src/` - Source code for the Ionic app
-  - `app/` - Angular app code
-  - `assets/` - Static assets
+  - `components/` - React components
+  - `pages/` - App pages
+  - `services/` - Service classes for API communication
+  - `context/` - React context providers
+  - `hooks/` - Custom React hooks
   - `theme/` - Theme variables
 - `android/` - Android platform code
 - `resources/` - App icons and splash screens
 - `public/` - Public assets
+
+## CORS Handling for Mobile Devices
+
+When running on a mobile device, the app uses a special proxy service to handle API requests and avoid CORS issues:
+
+1. The `ProxyService` in `src/services/proxy.service.ts` detects whether the app is running on a native platform
+2. For native platforms, it uses a `no-cors` mode approach with FormData to send requests
+3. Since `no-cors` mode returns opaque responses that can't be read, the service returns mock responses for testing
+4. For web/development, it uses regular fetch with JSON
+
+This approach allows the app to communicate with the API server from a mobile device without CORS errors.
 
 ## Contributing
 

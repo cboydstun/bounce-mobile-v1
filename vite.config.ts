@@ -18,9 +18,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://satxbounce.com',
+        target: 'https://www.satxbounce.com',
         changeOrigin: true,
-        secure: true
+        secure: false
       }
     }
   }
