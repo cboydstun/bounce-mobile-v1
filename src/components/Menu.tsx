@@ -8,10 +8,14 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
+  IonButton,
+  IonLoading,
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { homeOutline, homeSharp, logInOutline, logInSharp } from 'ionicons/icons';
+import { useAuth } from '../hooks/useAuth';
+import { useState } from 'react';
 import './Menu.css';
 
 interface AppPage {
@@ -21,56 +25,52 @@ interface AppPage {
   title: string;
 }
 
-const appPages: AppPage[] = [
-  {
-    title: 'Inbox',
-    url: '/folder/Inbox',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp
-  },
-  {
-    title: 'Outbox',
-    url: '/folder/Outbox',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
-  },
-  {
-    title: 'Favorites',
-    url: '/folder/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
-  },
-  {
-    title: 'Archived',
-    url: '/folder/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
-  },
-  {
-    title: 'Trash',
-    url: '/folder/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
-  },
-  {
-    title: 'Spam',
-    url: '/folder/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
-  }
-];
+const getAppPages = (isAuthenticated: boolean): AppPage[] => {
+  const authPages: AppPage[] = [
+    {
+      title: 'Dashboard',
+      url: '/dashboard',
+      iosIcon: homeOutline,
+      mdIcon: homeSharp
+    }
+  ];
 
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  const publicPages: AppPage[] = [
+    {
+      title: 'Login',
+      url: '/login',
+      iosIcon: logInOutline,
+      mdIcon: logInSharp
+    }
+  ];
+
+  return isAuthenticated ? authPages : publicPages;
+};
+
 
 const Menu: React.FC = () => {
   const location = useLocation();
+  const { user, isAuthenticated, logout } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const appPages = getAppPages(isAuthenticated);
+
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      await logout();
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonListHeader>Bounce Mobile</IonListHeader>
+          <IonNote>{user?.email || 'Not logged in'}</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
@@ -83,15 +83,16 @@ const Menu: React.FC = () => {
           })}
         </IonList>
 
-        <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
-        </IonList>
+
+        {isAuthenticated && (
+          <div className="ion-padding">
+            <IonButton expand="block" color="danger" onClick={handleLogout}>
+              Logout
+            </IonButton>
+          </div>
+        )}
+
+        <IonLoading isOpen={loading} message="Logging out..." />
       </IonContent>
     </IonMenu>
   );
