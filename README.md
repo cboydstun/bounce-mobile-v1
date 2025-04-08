@@ -123,25 +123,87 @@ This script will:
 
 - `src/` - Source code for the Ionic app
   - `components/` - React components
+    - `ContactStatusBadge.tsx` - Visual indicator for contact status
+    - `ContactsList.tsx` - Paginated list of contacts with status update functionality
+    - `ContactsFilter.tsx` - Filter controls for contacts
   - `pages/` - App pages
+    - `Dashboard.tsx` - Main dashboard with contact summaries and metrics
+    - `Contacts.tsx` - Detailed contacts management page
+    - `Calendar.tsx` - Calendar view for scheduled events (placeholder)
   - `services/` - Service classes for API communication
+    - `contacts.service.ts` - Service for contacts API interactions
+    - `proxy.service.ts` - Proxy service for handling CORS issues
   - `context/` - React context providers
   - `hooks/` - Custom React hooks
+    - `useContacts.ts` - Hook for contacts data management
+  - `types/` - TypeScript type definitions
+    - `contact.ts` - Contact interfaces and types
   - `theme/` - Theme variables
 - `android/` - Android platform code
 - `resources/` - App icons and splash screens
 - `public/` - Public assets
 
-## CORS Handling for Mobile Devices
+## Features
 
-When running on a mobile device, the app uses a special proxy service to handle API requests and avoid CORS issues:
+### Contacts Management
+
+The app includes a comprehensive contacts management system:
+
+- **Dashboard Overview**
+
+  - Summary cards showing total, pending, and confirmed contacts
+  - Upcoming events section (next 7 days)
+  - Recent contacts with quick status update functionality
+
+- **Detailed Contacts Management**
+
+  - Paginated list of all contacts
+  - Filtering by date range and confirmation status
+  - Status update functionality (Confirmed, Pending, Called/Texted, Declined, Cancelled)
+  - Detailed contact information display
+
+- **Calendar View**
+  - Placeholder for future calendar implementation
+
+### Authentication
+
+- Secure login system
+- Protected routes for authenticated users
+- Session management
+
+## CORS Handling
+
+The app uses two approaches to handle CORS issues:
+
+### Development Environment
+
+When running in development mode, the app uses Vite's built-in proxy:
+
+```javascript
+// vite.config.ts
+server: {
+  proxy: {
+    '/api': {
+      target: 'https://www.satxbounce.com',
+      changeOrigin: true,
+      secure: false
+    }
+  }
+}
+```
+
+This configuration proxies all `/api` requests through the development server to avoid CORS issues during development.
+
+### Mobile Devices
+
+When running on a mobile device, the app uses a special proxy service to handle API requests:
 
 1. The `ProxyService` in `src/services/proxy.service.ts` detects whether the app is running on a native platform
 2. For native platforms, it uses a `no-cors` mode approach with FormData to send requests
 3. Since `no-cors` mode returns opaque responses that can't be read, the service returns mock responses for testing
-4. For web/development, it uses regular fetch with JSON
+4. For web/development, it uses relative URLs to leverage the Vite proxy
 
-This approach allows the app to communicate with the API server from a mobile device without CORS errors.
+This dual approach allows the app to communicate with the API server from both development environments and mobile devices without CORS errors.
 
 ## Contributing
 
